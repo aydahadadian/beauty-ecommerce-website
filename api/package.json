@@ -1,0 +1,17 @@
+{
+  "name": "jwt-best-practices",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@mikro-orm/sqlite": "^4.3.0",
+    "@tensei/auth": "^0.2.4",
+    "@tensei/core": "^0.2.4",
+    "@tensei/graphql": "^0.2.4",
+    "graphql": "^15.4.0",
+    "graphql-request": "^3.3.0"
+  },
+  "scripts": {
+    "start": "node index"
+  }
+}
