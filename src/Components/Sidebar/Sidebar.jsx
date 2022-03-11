@@ -5,8 +5,7 @@ import { Items } from '../Menu/MenuData';
 import SubMenu from './SubMenu';
 
 import {  useHistory } from "react-router-dom";
-import { useClient, useCustomer } from '../../Store';
-import { remove_refresh_token } from '../../Query';
+
 
 
 const Container = styled.div`
@@ -102,10 +101,6 @@ a{
 
 const Sidebar = ({sidebar,setSidebar}) => {
 
-  const client = useClient();
-  const history = useHistory();
-  const { customer, setCustomer } = useCustomer();
-
   const handleSidebar = () => {
     setSidebar(false);
     document.body.style.overflowY = "scroll";
@@ -116,11 +111,11 @@ const Sidebar = ({sidebar,setSidebar}) => {
   }
 
   const logout = () => {
-    client.request(remove_refresh_token).finally(() => {
-      history.push("/");
+    // client.request(remove_refresh_token).finally(() => {
+    //   history.push("/");
 
-      setCustomer(null);
-    });
+    //   setCustomer(null);
+    // });
   };
     
     return (
@@ -134,14 +129,14 @@ const Sidebar = ({sidebar,setSidebar}) => {
                     <LogoContainer><Link to="/"><Logo src="../Images/logo-2.png" /></Link></LogoContainer>
                     <Icon><Close onClick={handleSidebar}/></Icon>
                     </Row>
-                    {customer ?    
+                    {/* {customer ?    
                       <>
                       <Row><LinkItem><Link to="/panel/dashboard"> <AccountCircleOutlined />  My Account</Link></LinkItem></Row>
                       <Row onClick={()=>logout()}><LinkItem><ExitToApp /> Sign Out</LinkItem></Row>
                       </>
                       :
                       <Row><LinkItem><Link to="/auth/sign-in"><ExitToApp /> Sign in</Link></LinkItem></Row>
-                    }
+                    } */}
                    
                 </Top>
                 <Bottom>

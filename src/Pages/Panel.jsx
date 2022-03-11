@@ -12,8 +12,6 @@ import {
 import Navbar from "../Components/Navbar"
 
 import { Link, Redirect, useHistory,useParams } from "react-router-dom";
-import { remove_refresh_token } from "../Query";
-import { useCustomer, useClient } from "../Store";
 import Dashboard from "../Components/Dashboard";
 import Wishlist from "../Components/Wishlist";
 import Orders from "../Components/Orders";
@@ -24,6 +22,8 @@ import Announcement from "../Components/Announcement";
 import { SM } from "../responsive";
 import UserAddresses from "../Components/UserAddresses";
 
+import {signOut } from "firebase/auth";
+import { auth } from "../firebase-config";
 
 const Container=styled.div`
 display:flex;
@@ -89,18 +89,11 @@ const Panel = () => {
   const  {link}  = useParams();
 
 
-
-  console.log(link)
-
-    const client = useClient();
-    const history = useHistory();
-    const { customer, setCustomer } = useCustomer();
-
     const data=[
        {id:1,
         icon:<HomeOutlined />,
         name:"dashboard",
-        component:<Dashboard userData={customer}/>
+        component:<Dashboard/>
       },
       {id:2,
         icon: <FavoriteBorder />,
@@ -127,16 +120,13 @@ const Panel = () => {
 
     const currentData=data.find(d=>d.name=== link);
   
-    const logout = () => {
-      client.request(remove_refresh_token).finally(() => {
-        history.push("/auth/sign-in");
+    const logout = async () => {
   
-        setCustomer(null);
-      });
+      await signOut(auth) 
     };
   
-    if (!customer) {
-      return <Redirect to="/auth/sign-in" />;
+    if (!auth.currentUser?.email) {
+      return <Redirect to="/sign-in" />;
     }
   
     return (

@@ -1,7 +1,10 @@
-import { Clear } from '@material-ui/icons'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { SM } from '../responsive'
+
+import { auth } from '../firebase-config';
+import {onAuthStateChanged} from "firebase/auth";
+import { VisibilityOffOutlined } from '@material-ui/icons';
 
 const Container=styled.div`
 padding: 1rem;
@@ -54,17 +57,25 @@ cursor:pointer;
 `
 
 
-const Dashboard = ({userData}) => {
-    const reviewNum=(JSON.parse(localStorage.getItem("beauty-shop-userReview"))).length;
-    const wishlistNum=(JSON.parse(localStorage.getItem("beauty-shop-wishlist"))).length;
+const Dashboard = () => {
+
+    const [user, setUser] = useState({});
+    const reviewNum=(JSON.parse(localStorage.getItem("beauty-shop-userReview")))?.length;
+    const wishlistNum=(JSON.parse(localStorage.getItem("beauty-shop-wishlist")))?.length;
+
+  onAuthStateChanged(auth, (currentUser)=>{
+    setUser(currentUser);
+  })
+
+  
     return (
         <Container>
             <Title>Dashboard</Title>
             <Wrapper>
            <Box>
               <BoxTitle> Information</BoxTitle>
-               <Inform><InformTitle>Name</InformTitle> {userData.name}</Inform>
-               <Inform><InformTitle>Email</InformTitle> {userData.email}</Inform>
+               <Inform><InformTitle>Email</InformTitle> {user?.email}</Inform>
+               <Inform><InformTitle>Password</InformTitle>*** </Inform>
                <Button>Edit Information</Button>
            </Box>
            <Box>

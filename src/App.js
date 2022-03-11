@@ -1,16 +1,26 @@
 
+import { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Product from './Pages/Product';
 import ProductList from './Pages/ProductList';
-
-import { ClientWrapper, CustomerWrapper } from "./Store";
 import Cart from './Pages/Cart';
 import Panel from './Pages/Panel';
 
+
+import { auth } from './firebase-config';
+import {onAuthStateChanged} from "firebase/auth"
+
 function App() {
+
+  const [user, setUser] = useState({});
+
+  onAuthStateChanged(auth, (currentUser)=>{
+    setUser(currentUser);
+  })
+
   return (
     <>
     <Router>
@@ -29,17 +39,17 @@ function App() {
     <Cart/>
     </Route>
 
-    <ClientWrapper>
-      <CustomerWrapper>
+
+
       <Route  exact path="/">
     <Home/>
     </Route>
     
-    <Route  path="/auth/sign-in">
+    <Route  path="/sign-in">
     <Login/>
     </Route>
 
-    <Route  path="/auth/sign-up">
+    <Route  path="/sign-up">
     <Register />
     </Route>
 
@@ -47,8 +57,6 @@ function App() {
 <Panel />
       </Route>
 
-    </CustomerWrapper>
-    </ClientWrapper>
     
 
     </Switch>

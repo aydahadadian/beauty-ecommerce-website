@@ -1,17 +1,22 @@
+import { useState } from "react";
 import styled from "styled-components";
 import {SM, XS} from "../responsive";
-import { Check, VisibilityOffOutlined, VisibilityOutlined } from "@material-ui/icons";
+import { Check, ErrorOutline, VisibilityOffOutlined, VisibilityOutlined } from "@material-ui/icons";
+import { Link , Redirect } from "react-router-dom";
+import Footer from "../Components/Footer";
 
-import { Link, useHistory, Redirect } from "react-router-dom";
-import { register } from "../Query";
-import { useClient, useCustomer } from "../Store";
-import Footer from "../Components/Footer"
-import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase-config";
 
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  background:url("../Images/sign-up2-1.jpg")center;
+  background: linear-gradient(
+      rgba(200, 165, 255, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url("../Images/sign-up2-1.jpg")
+      center;
   background-color:#C6B1FF;
   background-size: cover;
   display: flex;
@@ -33,6 +38,19 @@ const Title = styled.h2`
 
   padding: 0 5px 15px;
 `;
+const Error = styled.p`
+  
+  color: #ff2828;
+    padding-top: 5px;
+    font-weight: 500;
+    font-size: 1rem;
+    display: flex;
+    align-items: flex-start;
+    svg{
+      color: #ff2828;
+      font-size:1.2rem;
+    }
+`
 
 const Form = styled.form`
   display: flex;
@@ -144,36 +162,59 @@ cursor: pointer;
 
 const Register = () => {
 
-  const [showPassword, setShowPassword] = useState(false)
-  const [checked, setChecked] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const [error, setError] = useState("");
   
- 
-    const client = useClient();
-    const history = useHistory();
-    const { customer, setCustomer } = useCustomer();
   
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
       event.preventDefault();
+      var errorMessage;
+      const [email,password] = event.target.elements;
   
-      const [name, email, password] = event.target.elements;
-  
-      client
-        .request(register, {
-          name: name.value,
-          email: email.value,
-          password: password.value,
-        })
-        .then(({ register_customer: { customer, token } }) => {
-          client.setHeader("authorization", `Bearer ${token}`);
-  
-          setCustomer(customer);
-  
-          history.push("/panel/dashboard");
-        })
-        .catch(console.log);
+      const registerEmail = email.value;
+      const registerPassword = password.value;
+
+      try{
+        const user = await createUserWithEmailAndPassword(auth,registerEmail,registerPassword);
+        console.log(user);
+    
+      } catch (error){
+        switch (error.code) {
+          case "auth/weak-password":
+            errorMessage = "Your password is too weak . it must be at least 6 characters long";
+            break;
+              case "auth/email-already-in-use":
+                errorMessage = "email already exists";
+                break;
+          case "auth/internal-error":
+            errorMessage = "Please make sure all fields are filled in correctly";
+            break;
+          case "auth/too-many-requests":
+            errorMessage = "Too many requests. Try again later.";
+            break;
+          case "auth/missing-email":
+            errorMessage = "Please enter your email address";
+            break;
+          case "auth/invalid-email":
+            errorMessage = "Please enter a valid email address";
+            break;
+          default:
+            errorMessage = "An undefined Error happened.";
+       
+            
+        }
+        console.log(error.code);
+      
+      }
+      
+       setError(errorMessage)
+      
     };
+
+
   
-    if (customer) {
+    if (auth?.currentUser?.email) {
       return <Redirect to="/panel/dashboard" />;
     }
 
@@ -182,11 +223,13 @@ const Register = () => {
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
+
+        {error !== "" && 
+        <Error><ErrorOutline /> {error}</Error> 
+        }
+
         <Form onSubmit={handleSubmit}>
-          <Box>
-          <BoxTitle>User name</BoxTitle>
-          <Input type="name" placeholder="user name" />
-            </Box>
+      
           <Box>
           <BoxTitle>Email</BoxTitle>
           <Input type="email" placeholder="email" />
@@ -217,7 +260,7 @@ const Register = () => {
           </Agreement>
           <Button disabled={!checked} type="submit" >CREATE ACCOUNT</Button>
 
-          <LinkTag>ALREADY HAVE AN ACCOUNT?<Link to="/auth/sign-in">Sign In to your account</Link></LinkTag>
+          <LinkTag>ALREADY HAVE AN ACCOUNT?<Link to="/sign-in">Sign In to your account</Link></LinkTag>
         
         </Form>
       </Wrapper>

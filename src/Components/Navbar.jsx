@@ -6,11 +6,12 @@ import { SearchOutlined,MenuOutlined,Clear ,ShoppingCartOutlined, AccountCircleO
 import { MD, SM,XS } from '../responsive';
 import { Items } from './Menu/MenuData';
 import Menu from './Menu/Menu';
-
-import {  useHistory } from "react-router-dom";
-import { remove_refresh_token } from "../Query";
-import { useCustomer, useClient } from "../Store";
 import Sidebar from './Sidebar/Sidebar';
+
+import { auth } from '../firebase-config';
+import {onAuthStateChanged,signOut} from "firebase/auth";
+
+
 
 
 
@@ -197,19 +198,20 @@ border-bottom: 1px solid #f6f6f6;
 
 const Navbar = () => {
 
-    const client = useClient();
-    const history = useHistory();
-    const { customer, setCustomer } = useCustomer();
- 
+    const cartNum=(JSON.parse(localStorage.getItem("beauty-shop-proIds")))?.length;
 
     const [itemIndex, setItemIndex] = useState('');
     const [modal, setModal] = useState(false);
     const [sidebar, setSidebar] = useState(false);
-    const [hover, setHover] = useState(false)
-    const [click, setClick] = useState(false)
+    const [hover, setHover] = useState(false);
+    const [click, setClick] = useState(false);
+    const [user, setUser] = useState({});
 
-    const cartNum=(JSON.parse(localStorage.getItem("beauty-shop-proIds"))).length;
-   
+    onAuthStateChanged(auth, (currentUser)=>{
+      setUser(currentUser);
+    })
+
+
  
     const handleMouseLeave=()=>{
        
@@ -225,12 +227,9 @@ const Navbar = () => {
         // document.body.style.overflow = "hidden"
       };
 
-    const logout = () => {
-        client.request(remove_refresh_token).finally(() => {
-          history.push("/");
-    
-          setCustomer(null);
-        });
+      const logout = async () => {
+  
+        await signOut(auth) 
       };
 
       useEffect(() => {
@@ -286,23 +285,25 @@ const Navbar = () => {
 
                     </Search>
 
-                    {!customer ?  
-                     <Btn> <Link to="/auth/sign-in">SIGN IN</Link> </Btn>
-                    : <Account>
-                    <AccountBtn onClick={()=>setClick(!click)}>
-                    <AccountCircleOutlined /> 
-                    {click ? <ArrowDropUp /> :<ArrowDropDown />}
-                    </AccountBtn>
-                    {click &&
-                    <DropdownAccount>
-                    <DropdownAccountItem><Link to="/panel/dashboard">My Account</Link></DropdownAccountItem>
-                    <DropdownAccountItem><Link to="/panel/wishlist">My Wishlist</Link></DropdownAccountItem>
-                    <DropdownAccountItem onClick={()=>logout()}>Sign Out</DropdownAccountItem>
-                    </DropdownAccount>
-                    }
-                    </Account>
-                   
-                    }
+                    {user?.email ?         
+                         <Account>
+                         <AccountBtn onClick={()=>setClick(!click)}>
+                         <AccountCircleOutlined /> 
+                         {click ? <ArrowDropUp /> :<ArrowDropDown />}
+                         </AccountBtn>
+                         {click &&
+                         <DropdownAccount>
+                         <DropdownAccountItem><Link to="/panel/dashboard">My Account</Link></DropdownAccountItem>
+                         <DropdownAccountItem><Link to="/panel/wishlist">My Wishlist</Link></DropdownAccountItem>
+                         <DropdownAccountItem onClick={()=>logout()}>Sign Out</DropdownAccountItem>
+                         </DropdownAccount>
+                         }
+                         </Account>
+                         :  
+                     <Btn> <Link to="/sign-in">SIGN IN</Link> </Btn>
+                
+                        }
+                    
                    
            
                     <IconContainer>

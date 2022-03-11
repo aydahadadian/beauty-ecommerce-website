@@ -44,7 +44,7 @@ padding-bottom: 10px;
 
 `
 const Input=styled.input`
-padding:  10px;
+padding:  7px;
 border: 1px solid #b4b4b4;
 
 `

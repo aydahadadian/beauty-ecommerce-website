@@ -1,25 +1,32 @@
 
+import { useState } from "react";
 import styled from "styled-components";
+import { ErrorOutline, VisibilityOffOutlined, VisibilityOutlined } from "@material-ui/icons";
 import {MD, SM, XS} from "../responsive";
 
 import { Link, Redirect, useHistory } from "react-router-dom";
-import { login } from "../Query";
-import { useCustomer, useClient } from "../Store";
 import Footer from "../Components/Footer"
-import { VisibilityOffOutlined, VisibilityOutlined } from "@material-ui/icons";
-import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase-config";
+
 
 
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  background:url("../Images/sign-in2-1.jpg")center;
+  background: linear-gradient(
+      rgba(200, 165, 255, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url("../Images/sign-in2-1.jpg")
+      center;
+  /* background:url("../Images/sign-in2-1.jpg")center; */
   background-color:#C6B1FF;
   background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
-`;
+`
 
 const Wrapper = styled.div`
      width: 370px;
@@ -29,17 +36,31 @@ const Wrapper = styled.div`
     border-radius: 5px;
 
   ${XS({ width: "300px"})} 
-`;
+`
 
 const Title = styled.h2`
   
   padding: 0 5px 15px;
-`;
+`
+
+const Error = styled.p`
+  
+  color: #ff2828;
+    padding-top: 5px;
+    font-weight: 500;
+    font-size: 1rem;
+    display: flex;
+    align-items: flex-start;
+    svg{
+      color: #ff2828;
+      font-size:1.2rem;
+    }
+`
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-`;
+`
 
 const Box = styled.div`
   border: 1px solid #b2b2b2;
@@ -49,12 +70,12 @@ const Box = styled.div`
   margin: 10px 0;
   position:relative;
 
-`;
+`
 const BoxTitle = styled.h3`
 font-size: .8rem;
 color: #9d9d9d;
 padding: 5px 5px 0;
-`;
+`
 const Icon = styled.span`
 position:absolute;
 bottom: 4px;
@@ -63,7 +84,7 @@ cursor: pointer;
 svg{
   color: #b2b2b2;
 }
-`;
+`
 const Input = styled.input`
 background: transparent;
 border: none;
@@ -73,7 +94,7 @@ font-size:1rem;
 &:focus{
   outline:none;
 }
-`;
+`
 
 const Button = styled.button`
 width: 100%;
@@ -91,7 +112,7 @@ box-shadow: 0 10px 18px -6px #5d54c4b5;
     color: green;
     cursor: not-allowed;
   }
-`;
+`
 
 const LinkTag = styled.span`
   font-weight:500;
@@ -108,39 +129,63 @@ const LinkTag = styled.span`
 const Login = () => {
  
   document.body.style.overflowY = "scroll";
-  const [showPassword, setShowPassword] = useState(false)
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
 
-  const client = useClient();
-  const history = useHistory();
-  const { customer, setCustomer } = useCustomer();
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    var errorMessage;
 
     const [email, password] = event.target.elements;
 
-    client
-      .request(login, {
-        email: email.value,
-        password: password.value,
-      })
-      .then(({ login_customer: { customer, token } }) => {
-        client.setHeader("authorization", `Bearer ${token}`);
+    const loginEmail = email.value;
+    const loginPassword = password.value;
 
-        setCustomer(customer);
-
-        history.push("/panel/dashboard");
-      })
-      .catch(console.log);
-      console.log('hiiiii')
+    try{
+      const user = await signInWithEmailAndPassword(auth,loginEmail,loginPassword);
+      console.log(user);
+      //  history.push("/panel/dashboard");
+    } catch (error){
+      // console.log(error.message);
+      switch (error.code) {
+        case "auth/invalid-email":
+          errorMessage = "Your email address appears to be malformed.";
+          break;
+            case "auth/wrong-password":
+              errorMessage = "Wrong password combination.";
+              break;
+        case "auth/user-not-found":
+          errorMessage = "User with this email doesn't exist.";
+          break;
+        case "auth/internal-error":
+          errorMessage = "Please make sure all fields are filled in correctly";
+          break;
+        case "auth/too-many-requests":
+          errorMessage = "Too many requests. Try again later.";
+          break;
+        case "auth/operation-not-allowed":
+          errorMessage = "Signing in with Email and Password is not enabled.";
+          break;
+        default:
+          errorMessage = "An undefined Error happened.";
      
+          
+      }
+      console.log(error.code);
+    }
+
+    setError(errorMessage);
+
+       
+
   };
 
-  if (customer) {
+
+  if (auth.currentUser?.email) {
     return <Redirect to="/panel/dashboard" />;
   }
-
 
  
   return (
@@ -148,6 +193,11 @@ const Login = () => {
     <Container>
       <Wrapper>
         <Title>Sign in to your account</Title>
+
+        {error !== "" && 
+        <Error><ErrorOutline /> {error}</Error> 
+        }
+
         <Form onSubmit={handleSubmit}> 
         <Box>
         <BoxTitle>Email</BoxTitle>
@@ -173,7 +223,7 @@ const Login = () => {
           </Button >
          
         
-          <LinkTag>DON'T HAVE AN ACCOUNT YET ?<Link to="/auth/sign-up">CREATE A NEW ACCOUNT</Link></LinkTag>
+          <LinkTag>DON'T HAVE AN ACCOUNT YET ?<Link to="/sign-up">CREATE A NEW ACCOUNT</Link></LinkTag>
         </Form>
       </Wrapper>
     </Container>
