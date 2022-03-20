@@ -1,12 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-import {SM, XS} from "../responsive";
+import {XS} from "../responsive";
 import { Check, ErrorOutline, VisibilityOffOutlined, VisibilityOutlined } from "@material-ui/icons";
 import { Link , Redirect } from "react-router-dom";
 import Footer from "../Components/Footer";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase-config";
+import { auth ,db } from "../firebase-config";
+import {doc,setDoc} from "firebase/firestore";
 
 const Container = styled.div`
   width: 100vw;
@@ -165,19 +166,30 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
   const [error, setError] = useState("");
+
+
+  const createUserData = async (name,id) => {
+    await setDoc(doc(db, "users", id), {
+      name : name
+    })
+  }
   
   
     const handleSubmit = async (event) => {
       event.preventDefault();
       var errorMessage;
-      const [email,password] = event.target.elements;
+      const [name,email,password] = event.target.elements;
   
+      const userName = name.value;
       const registerEmail = email.value;
       const registerPassword = password.value;
 
       try{
-        const user = await createUserWithEmailAndPassword(auth,registerEmail,registerPassword);
-        console.log(user);
+         await createUserWithEmailAndPassword(auth,registerEmail,registerPassword)
+        .then(cred => {
+          createUserData(userName,cred.user.uid);
+          // console.log(cred.user.uid);
+        });
     
       } catch (error){
         switch (error.code) {
@@ -231,9 +243,15 @@ const Register = () => {
         <Form onSubmit={handleSubmit}>
       
           <Box>
+          <BoxTitle>Name</BoxTitle>
+          <Input type="name" placeholder="John" />
+          </Box>
+
+          <Box>
           <BoxTitle>Email</BoxTitle>
           <Input type="email" placeholder="email" />
-            </Box>
+          </Box>
+
           <Box>
           <BoxTitle>Password</BoxTitle>
           <Icon onClick={()=>setShowPassword(!showPassword)}>
