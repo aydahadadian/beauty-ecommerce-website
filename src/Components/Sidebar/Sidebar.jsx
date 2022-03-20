@@ -1,11 +1,13 @@
+
+import { useState } from 'react';
 import styled from 'styled-components';
 import {ExitToApp, Close, AccountCircleOutlined} from "@material-ui/icons";
 import { Link } from 'react-router-dom';
 import { Items } from '../Menu/MenuData';
 import SubMenu from './SubMenu';
 
-import {  useHistory } from "react-router-dom";
-
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from '../../firebase-config';
 
 
 const Container = styled.div`
@@ -101,6 +103,19 @@ a{
 
 const Sidebar = ({sidebar,setSidebar}) => {
 
+  const [user, setUser] = useState({});
+
+  onAuthStateChanged(auth, (currentUser)=>{
+    setUser(currentUser);
+  })
+
+
+  const logout = async () => {
+  
+    await signOut(auth) 
+  };
+
+
   const handleSidebar = () => {
     setSidebar(false);
     document.body.style.overflowY = "scroll";
@@ -109,15 +124,8 @@ const Sidebar = ({sidebar,setSidebar}) => {
   if(sidebar){
     document.body.style.overflow = "hidden";
   }
-
-  const logout = () => {
-    // client.request(remove_refresh_token).finally(() => {
-    //   history.push("/");
-
-    //   setCustomer(null);
-    // });
-  };
     
+
     return (
         <Container active={sidebar ? false : true} onTouchStart={handleSidebar}>
               
@@ -129,14 +137,15 @@ const Sidebar = ({sidebar,setSidebar}) => {
                     <LogoContainer><Link to="/"><Logo src="../Images/logo-2.png" /></Link></LogoContainer>
                     <Icon><Close onClick={handleSidebar}/></Icon>
                     </Row>
-                    {/* {customer ?    
+
+                    {user?.email ?    
                       <>
                       <Row><LinkItem><Link to="/panel/dashboard"> <AccountCircleOutlined />  My Account</Link></LinkItem></Row>
                       <Row onClick={()=>logout()}><LinkItem><ExitToApp /> Sign Out</LinkItem></Row>
                       </>
                       :
-                      <Row><LinkItem><Link to="/auth/sign-in"><ExitToApp /> Sign in</Link></LinkItem></Row>
-                    } */}
+                      <Row><LinkItem><Link to="/sign-in"><ExitToApp /> Sign in</Link></LinkItem></Row>
+                    }
                    
                 </Top>
                 <Bottom>
