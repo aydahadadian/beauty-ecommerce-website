@@ -1,6 +1,4 @@
-import {  Clear, StarOutlined } from '@material-ui/icons'
-import React from 'react'
-import { useState } from 'react'
+import {  Clear } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { products } from '../data'
@@ -12,16 +10,11 @@ const Container = styled.div`
 padding: 1rem;
 `
 const Wrapper=styled.div`
-
-
 `
 
 const Title=styled.h2`
   margin-bottom:1rem;
 `
-
-
-
 
 const Review = styled.div`
 -webkit-box-shadow: 2px 0px 7px 0px #D2D2D2; 
@@ -119,7 +112,7 @@ const UserReviews = () => {
 
            window.location.reload()
          } 
-         console.log(UserReviewsArray)
+
 
     return (
         <Container>
