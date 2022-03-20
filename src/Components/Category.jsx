@@ -38,44 +38,6 @@ padding: 15px 30px;
 }
 ${XS({textAlign:"center",fontSize:"1.7rem"})}
 `
-// const Left = styled.div`
-// flex:2;
-// display:flex;
-// flex-wrap:wrap;
-// height:95%;
-// align-items:center;
-// margin-right:5px;
-// `
-// const Right = styled.div`
-// flex:1;
-// height:95%;
-// padding:5px 0 ;
-// position:relative;
-
-// `
-
-const Image=styled.img`
-
-object-fit: cover; 
-height:100%;
-width:100%;
-border-radius: 3px;
-`
-
-const Info = styled.div`
-
-position: absolute;
-bottom:0;
-display: flex;
-justify-content: center;
-align-items: center;
-z-index: 3;
-width: 100%;
-background-color: #3a3a3a68;
-height:15%;
-transition: all .1s ease-in;
-
-`
 
 
 const Category = ({data,type}) => {
