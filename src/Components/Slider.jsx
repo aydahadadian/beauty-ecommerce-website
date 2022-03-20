@@ -1,4 +1,4 @@
-import { ArrowForward ,ArrowRight, ArrowLeft} from '@material-ui/icons'
+import { ArrowRight, ArrowLeft} from '@material-ui/icons'
 import React,{useState} from 'react'
 import { useEffect } from 'react'
 import styled from 'styled-components'
@@ -6,7 +6,7 @@ import {sliderItems} from "../data"
 import {MD, SM, XS} from "../responsive"
 
 const Container = styled.div`
-height: 85vh;
+height: 75vh;
 width: 100%;
 display: flex;
 align-items: center;
@@ -14,8 +14,10 @@ position: relative;
 overflow:hidden;
 /* left:0;
 right:0; */
-${SM({height:"55vh"})}
-${XS({height:"40vh"})}
+${SM({height:"50vh"})}
+${XS({height:"85vh"})}
+
+
 
 
 `
@@ -27,23 +29,29 @@ transition: all .8s ease-in;
 `
 const Slide = styled.div`
 width: 100vw;
-height: 85vh;
+height: 75vh;
 display: flex;
 align-items: center;
-background-color: #${(props)=>props.bc};
 position: relative;
-${SM({display:"none"})}
-`
-const Slide2 = styled.div`
-width: 100vw;
-height: 55vh;
-display: none;
-align-items: center;
+justify-content:center;
 background-color: #${(props)=>props.bc};
-position: relative;
-${SM({display:"flex"})}
-${XS({height:"40vh"})}
+${SM({height:"50vh"})}
+${XS({height:"85vh"})};
+::after{
+    content:"";
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background-color:#000;
+    opacity:.1;
+    z-index:1;
+    position:absolute;
+    ${XS({opacity:".3"})}
+}
+
 `
+
 const Arrow = styled.span`
 width: 40px;
 height: 40px;
@@ -65,90 +73,113 @@ opacity: 1;
 transform: scale(1.1);
 }
 ${SM({width:"35px",height:"35px"})}
+${XS({display:"none"})}
+`
+
+const BulletContainer = styled.div`
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    justify-content: center;
+    display: none;
+    padding: 8px 0;
+    background-color:#eeeeee0f;
+    ${XS({display:"flex"})}
+
+`
+const Bullet = styled.span`
+
+    width: 10px;
+    height: 10px;
+    background-color:${(props)=>props.active === true ? "#f0ae19" : "#ffffff"} ;
+    display: inline-block;
+    border-radius: 50%;
+    margin: 0 5px;
 `
 
 const ImageContainer = styled.div`
 
 height: 100%;
 display: flex;
-/* padding-left:1.5rem; */
-${MD({padding:"0",width:"100%"})}
-
+width:100%;
 `
 const Image = styled.img`
-// width: 70%;
+height:100%;
+width:100%;
 object-fit: cover;
-${MD({width:"100%"})}
+${SM({width:"auto"})}
+${XS({display:"none"})}
+
 `
-const Video = styled.video`
-width: 100%;
-height: 100%;
+const Image2 = styled.img`
+width:100%;
+height:100%;
 object-fit: cover;
+display:none;
+${XS({display:"flex"})}
 `
+
 const Info = styled.div`
 position: absolute;
 right: 6%;
 max-width: 37%;
-
+z-index:2;
 ${MD({maxWidth:"42%"})}
+${XS({maxWidth:"100%",height:"100%",display:"flex",flexDirection:"column",alignItems:"center",padding:"0 20px",justifyContent:"end",color:"#fff",paddingBottom: "40px"})}
+
 
 `
 const Title = styled.h2`
-font-weight: 400;
-font-size: 3rem;
-margin: 15px 0;
+font-weight: 700;
+font-size: 2.5rem;
+z-index:10;
 
+${SM({fontSize:"1.8rem"})}
 `
 const Desc = styled.p`
-margin: 25px 0 ;
+margin: 10px 0 25px ;
 font-weight : 400;
-letter-spacing: 4px;
 font-size: 1rem;
-max-width:100%;
-
-
+z-index:10;
+${XS({textAlign:"center"})}
 `
+
 const Btn = styled.div`
     
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position:absolute;
-    right: 10px;
-    font-size: 18px;
-    background-color: #464646;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    padding: 9px 18px;
-    bottom: -70px;
-    border-radius: 22px;
-    overflow: hidden;
-    width: 118px;
+font-size: 15px;
+background-color: #171717;
+color: #fff;
+border: none;
+cursor: pointer;
+padding: 10px 20px;
+border-radius: 36px;
+overflow: hidden;
+margin-bottom: 28px;
+max-width:85px;
  
-     /* svg{padding-left:6px;} */
-    ::after{
-        content: '';
-        border-top: 2px solid #fff;
-        border-bottom: 1px solid #fff;
-        width: 250px;
-        height: 15px;
-        position: absolute;
-        z-index: 3;
-        transform: rotate(22deg);
-        top: 0;
-        right: -170px;
-        -webkit-box-shadow: 5px -5px 11px -4px #FFFFFF; 
-         box-shadow: 5px -5px 11px -4px #FFFFFF;
 
-    }
-
-    :hover::after{
-       transition:right 1s cubic-bezier(.9,.03,.69,.22);
-       right:190px;
-       
+    :hover{
+  
+       background-color:#6d6d6d;
     }
   
+`
+
+const Brands = styled.div`
+width:100%;
+height:10vh;
+display:flex;
+justify-content:center;
+box-shadow: 0px 8px 19px -14px #959595;
+margin-bottom: 28px;
+
+`
+const BrandsImage = styled.div`
+background:url("../Images/brands-List.png")center no-repeat;
+width:100%;
+height:100%;
+${SM({background:"url(../Images/brands-List-sm.png)center no-repeat"})}
+
 `
 
 
@@ -165,13 +196,18 @@ const Slider = () => {
         }else{
             setSlideNum(slideNum > 0  ? slideNum-1 : maxSlide-1);
         }
+
         setSlideShow(false)
         
     }
 
-   
+    const handleBulletClicked=(i)=>{
+        setSlideNum(i);
+        setSlideShow(false);
+    }
 
       useEffect(() => {
+          
           const time=slideShow ? 3000 : 9000 ;
        const text=setTimeout(() => {
             setSlideNum((slideNum) => slideNum < maxSlide-1 ? slideNum+1 : 0);
@@ -183,6 +219,7 @@ const Slider = () => {
       });
  
     return (
+        <>
         <Container>
             <Arrow direction="left" onClick={()=>handleClick("left")}>
                 <ArrowLeft />
@@ -194,51 +231,44 @@ const Slider = () => {
             <Slide key={s.id} bc={s.bg}>
                 <ImageContainer>
             <Image src={s.img} />
+            <Image2 src={s.ResImg} />
             </ImageContainer>
 
 
             <Info>
                 <Title>{s.title}</Title>
                 <Desc>{s.desc}</Desc>
-                <Btn type={s.btn}><b>SHOP </b>  NOW 
-                    <ArrowForward />
-
-                </Btn>
+                <Btn type={s.btn}><b>SHOP </b>  NOW </Btn>
             </Info>
 
             </Slide>
             ))}
-            
-{sliderItems.map((s)=>(
-            <Slide2 key={s.id} bc={s.bg}>
-            
-
-                    {s.ResImg ?
-                    < ImageContainer>
-                     <Image src={s.ResImg} />
-                     </ImageContainer>:
-                    <Video src={s.vid} autoPlay={true} loop />
-                    }
-
-            {/* <Info>
-                <Title className='font-roman'>{s.title}</Title>
-                <Desc className='font-roman'>{s.desc}</Desc>
-                <Btn type={s.btn}>SHOP NOW 
-                    <ArrowForward />
-
-                </Btn>
-            </Info> */}
-
-            </Slide2>
-            ))}
-
+ 
             </Wrapper>
 
             <Arrow direction="right" onClick={()=>handleClick("right")}>
                 <ArrowRight />
                 </Arrow>
             
+            <BulletContainer>
+            {(() => {
+                    const bullets = [];
+                   
+
+                    for (let i = 0; i < maxSlide; i++) {
+                        bullets.push(<Bullet key={i} onClick={()=>handleBulletClicked(i)} active={i === slideNum && true}/>);
+                        
+                    }
+                    return bullets;
+
+                })()}
+            </BulletContainer>
         </Container>
+        <Brands>
+        <BrandsImage />
+
+        </Brands>
+       </>
     )
 }
 
