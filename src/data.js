@@ -3,19 +3,19 @@ export const sliderItems = [
     {
       id: 1,
       img: "../Images/slide-1.png",
-      ResImg: "../Images/Desktop -7.png",
-      title: "Change the world with your shine",
-      desc: "Check out the selection of eyeshadow plates and try to determine which colors work for you",
+      ResImg: "../Images/amir-seilsepour-_hAaFD1ucfk-unsplash.jpg",
+      title: "Change the world",
+      desc: "Change the world with your shine",
       bg: "c2aad954",
     
     },
     {
       id: 2,
       img: "../Images/slide-2-1.png",
-      ResImg: "../Images/Desktop -8.jpg",
-      title: "NEW EYE SHADOW PLATTE",
+      ResImg: "../Images/slide-main1.jpg",
+      title: "New eye shadow",
       desc: "Check out the selection of eyeshadow plates and try to determine which colors work for you",
-      bg: "c2aad954",
+      bg: "ece7ff",
     
     },
 
