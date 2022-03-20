@@ -1,11 +1,8 @@
-import { Clear, SearchOutlined, StarOutlined } from '@material-ui/icons'
-import { Rating } from '@mui/material'
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import { MD, SM, XS } from '../responsive'
-
-
+import { Clear, SearchOutlined } from '@material-ui/icons';
+import { Rating } from '@mui/material';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { MD, SM, XS } from '../responsive';
 
 const Container = styled.div`
 padding: 1rem;
@@ -131,7 +128,7 @@ const Wishlist = () => {
 
            window.location.reload()
          } 
-         console.log(wishlistArray)
+   
 
     return (
         <Container>
