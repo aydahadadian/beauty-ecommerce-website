@@ -1,6 +1,4 @@
-import Navbar from '../Components/Navbar'
-// import Newsletter from '../components/Newsletter'
-
+import Navbar from '../Components/Navbar';
 import styled from "styled-components";
 import { Clear } from '@material-ui/icons';
 import {MD, SM,XS} from "../responsive";
