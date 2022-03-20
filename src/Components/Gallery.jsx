@@ -3,9 +3,7 @@ import InnerImageZoom from 'react-inner-image-zoom';
 import styled from 'styled-components';
 import  "../Style.css";
 import { useEffect, useState } from 'react';
-import { GalleryData } from '../data';
-
-import { XS ,SM} from '../responsive';
+import { XS } from '../responsive';
 import  SimpleBarReact from 'simplebar-react';
 import 'simplebar/src/simplebar.css';
 
@@ -97,7 +95,7 @@ const Gallery = ({data,proId}) => {
          
           useEffect(() => {
              
-              handleImage(0)
+              handleImage(0);
           }, [])
           
        
