@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Navbar from '../Components/Navbar';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { XS ,SM} from '../responsive';
 import ProInformation from '../Components/ProInformation';
 import Reviews from '../Components/Reviews';
@@ -242,20 +242,6 @@ const Product = () => {
     }
 
   
-    useEffect(() => {
-             
-                const calculatePrice=(100-productInfo.discount)*(productInfo.price)/100;
-                const finalPrice=calculatePrice.toFixed(2)
-                setPrice(finalPrice)
-
-         }, [])
-
-    
-
-
-
-
-
 
 const handleSubmit=(e)=>{
          
@@ -304,7 +290,6 @@ const handleSubmit=(e)=>{
            }
 
          
-
        }else{
 
           arrayClick.push(newObj); 
@@ -312,12 +297,17 @@ const handleSubmit=(e)=>{
        
        } 
 
-      
        setCart(true)
 
- 
-      
    }
+
+   useEffect(() => {
+             
+             const calculatePrice=(100-productInfo.discount)*(productInfo.price)/100;
+             const finalPrice=calculatePrice.toFixed(2)
+             setPrice(finalPrice)
+
+      }, [])
 
    if (cart) {
     return <Redirect to="/cart" />;
