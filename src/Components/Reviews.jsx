@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Add, DateRangeOutlined, Star, StarOutlined, ThumbDownOutlined, ThumbUpOutlined} from '@material-ui/icons';
+import { StarOutlined, ThumbDownOutlined, ThumbUpOutlined} from '@material-ui/icons';
 import { useEffect, useState } from 'react';
 import { SM, XS } from '../responsive';
 import { Rating } from '@mui/material';
