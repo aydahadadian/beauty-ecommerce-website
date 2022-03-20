@@ -7,7 +7,7 @@ import Newsletter from "../Components/Newsletter";
 import Footer from "../Components/Footer";
 import Announcement from "../Components/Announcement";
 import { SM, XS } from "../responsive";
-import { Clear, FilterList, ListOutlined } from "@material-ui/icons";
+import { Clear, FilterList } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 
 const Container=styled.div`
