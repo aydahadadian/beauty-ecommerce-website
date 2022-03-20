@@ -60,8 +60,6 @@ cursor:pointer;
 
 
 
-
-
 const Newsletter = () => {
     return (
         <Container>
