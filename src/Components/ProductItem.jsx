@@ -1,8 +1,7 @@
-import { FavoriteBorderOutlined, Favorite, ShoppingCartOutlined, StarOutlined, SearchOutlined} from '@material-ui/icons'
-import React,{useEffect, useState} from 'react'
+import { FavoriteBorderOutlined, ShoppingCartOutlined, StarOutlined, SearchOutlined} from '@material-ui/icons'
+import React,{useState} from 'react'
 import styled from 'styled-components'
 import {Redirect,Link } from 'react-router-dom';
-import { XS } from '../responsive';
 import { Rating } from '@mui/material';
 
 
@@ -57,13 +56,7 @@ transform: scale(1.1);
 svg{color: #5d54c4; }
 
 `
-const SearchIcon=styled(Link)`
 
-display:none;
-cursor:pointer;
-svg{font-size: 1.5rem; color: #424242; }
-${XS({display:"flex"})}
-`
 
 const ImageContainer = styled.div`
 width: 100%;
@@ -297,7 +290,7 @@ const ProductItem = ({item,width,margin}) => {
                 </Price>
                 <Row>
                 <Btn onClick={()=>handleClick(item)}>    <ShoppingCartOutlined />ADD TO CART</Btn>
-                <SearchIcon to={`/product/${item.id}`}><SearchOutlined /></SearchIcon>
+        
                 <Icon onClick={()=>handleFavorite(item)}>
                 <FavoriteBorderOutlined />
                 </Icon>
