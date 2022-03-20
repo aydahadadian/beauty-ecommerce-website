@@ -1,8 +1,4 @@
-import { Add, DoubleArrow, DragHandle, ViewAgenda } from "@material-ui/icons"
-import styled from "styled-components"
-import { SM } from "../responsive"
-
-
+import styled from "styled-components";
 
 const Container=styled.div`
 
