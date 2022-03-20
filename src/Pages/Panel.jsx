@@ -5,13 +5,13 @@ import {
   ExitToAppOutlined,
   FavoriteBorder,
   HomeOutlined,
-  LocationOnOutlined,
   ShoppingBasketOutlined,
 } from "@material-ui/icons";
+import {CircularProgress } from '@material-ui/core';
 
 import Navbar from "../Components/Navbar"
 
-import { Link, Redirect, useHistory,useParams } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import Dashboard from "../Components/Dashboard";
 import Wishlist from "../Components/Wishlist";
 import Orders from "../Components/Orders";
@@ -22,8 +22,9 @@ import Announcement from "../Components/Announcement";
 import { SM } from "../responsive";
 import UserAddresses from "../Components/UserAddresses";
 
-import {signOut } from "firebase/auth";
+import {onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase-config";
+import { useState } from "react";
 
 const Container=styled.div`
 display:flex;
@@ -84,9 +85,33 @@ const Right=styled.div`
 flex:3;
 `
 
+const Loading=styled.div`
+height:75vh;
+width:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+a{
+  text-decoration:underline;
+  color: #1D9CF9;
+}
+b{
+  margin-top:1.5rem;
+}
+`
+
+
 
 const Panel = () => {
   const  {link}  = useParams();
+
+  const [user, setUser] = useState(null);
+
+  onAuthStateChanged(auth, (currentUser)=>{
+    setUser(currentUser);
+  })
+
 
 
     const data=[
@@ -108,7 +133,7 @@ const Panel = () => {
        {id:4,
         icon:<DirectionsOutlined />,
         name:"addresses",
-        component:<UserAddresses />,
+        component:<UserAddresses user={user} />,
       },
        {id:5,
         icon:<ShoppingBasketOutlined />,
@@ -118,23 +143,24 @@ const Panel = () => {
 
     ]
 
-    const currentData=data.find(d=>d.name=== link);
+    const currentData=data.find(d=>d.name === link);
   
     const logout = async () => {
   
       await signOut(auth) 
     };
   
-    if (!auth.currentUser?.email) {
-      return <Redirect to="/sign-in" />;
-    }
-  
+    
     return (
       <>   
 
       <Navbar />
       <Announcement />
           
+          {user === null 
+          
+          ? <Loading><CircularProgress /><b>You didn't login to your account?</b><Link to="/sign-in">back to sign-In page</Link></Loading>
+          :
       <Container>
      
     <Leftbar>
@@ -144,7 +170,7 @@ const Panel = () => {
      
       {data.map((item,index)=>
       
-      <MenuLink active={item.name===link && true}>
+      <MenuLink active={item.name===link && true} key={index}>
       <Link to={`/panel/${item.name}`} />
        {item.icon}
       <MenuLinkTitle>{item.name.charAt(0).toUpperCase() + item.name.slice(1)}</MenuLinkTitle>
@@ -170,6 +196,7 @@ const Panel = () => {
      
      
           </Container>
+          }
 
           <Newsletter />
           <Footer />
