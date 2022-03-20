@@ -1,15 +1,14 @@
 import {  ArrowRight, ArrowLeft} from '@material-ui/icons'
 import React,{useState,useEffect} from 'react'
 import styled from 'styled-components'
-import {XS,SM} from "../responsive"
+import {XS} from "../responsive"
 import ProductItem from './ProductItem'
 
 const Slider = styled.div`
 width: 100%;
 display: flex;
 flex-direction: column;
-margin: 2rem 0;
-padding: 20px 0;
+padding-bottom: 1rem;
 
 
 `
@@ -81,10 +80,13 @@ const ProSlider = ({data,title}) => {
 
     const [slideNum, setSlideNum] = useState(0);
     const [wSize, setWSize] = useState();
+    const [slideShow, setSlideShow] = useState(true);
 
     const handleWSize = () =>{
         
         setWSize(window.innerWidth);
+        setSlideNum(0);
+
     }
 
   
@@ -99,13 +101,33 @@ const ProSlider = ({data,title}) => {
         }else{
             setSlideNum(slideNum > 0  ? slideNum-1 : clickNum);
         }
+        wSize < 501 && setSlideShow(false)
         
     }
 
     useEffect(() => {
         handleWSize();
+       
+      
      }, [])
+
+     
+     useEffect(() => {
+        if( wSize < 501 ){
+        const time=slideShow ? 3000 : 9000 ;
+     const text=setTimeout(() => {
+          setSlideNum((slideNum) => slideNum < clickNum ? slideNum+1 : 0);
+          !slideShow && setSlideShow(true)
+      }, time);
+       
+      return () =>clearTimeout(text);
+    }
+      
+    });
+
      window.addEventListener('resize',handleWSize);
+
+
     return (
 
 
@@ -133,11 +155,7 @@ const ProSlider = ({data,title}) => {
                 </Arrow>
              
             
-        </Container>
-
-     
-
-              
+        </Container>     
               
 
         </Slider>
