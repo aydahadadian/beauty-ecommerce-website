@@ -1,7 +1,7 @@
 export const Items = [
     {
       title: 'MAKEUP',
-      path: '/',
+      path: '/products',
   
       img:'../Images/menu-1.jpg',
       Lev2:[
@@ -11,32 +11,32 @@ export const Items = [
             Lev3:[
                 {
                     title: 'Mascara',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Eye Liner',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Eye Shadow',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Under Eyes Concealer',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Lash & Brow Treatments',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'False Lashes',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
 
@@ -49,22 +49,22 @@ export const Items = [
             Lev3:[
                 {
                     title: 'Brow Pencils ',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: ' Brow Gels & Mascaras',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: ' Brow Kits & Palettes',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: ' Brow Tools & Tints',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
 
@@ -203,32 +203,32 @@ export const Items = [
             Lev3:[
                 {
                     title: 'Heat Protection',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: ' Hairspray',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Hair Wax & Gel',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Hair Cream',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Hair Pomades',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Hair Mousse',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
 
@@ -320,42 +320,42 @@ export const Items = [
             Lev3:[
                 {
                     title: 'Day Creams',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Night Creams',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Balms & Gels',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Creams & Lotions',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Day Creams',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Night Creams',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Balms & Gels',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Creams & Lotions',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
 
@@ -413,22 +413,22 @@ export const Items = [
             Lev3:[
                 {
                     title: 'Day Creams',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Night Creams',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Balms & Gels',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Creams & Lotions',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
 
@@ -625,27 +625,27 @@ export const Items = [
             Lev3:[
                 {
                     title: 'Benefit',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Charlotte Tilbury',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Huda Beauty',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'Kérastase',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
                 {
                     title: 'KVD Beauty',
-                    path: '/' ,
+                    path : "/products" ,
                     
                 },
 
