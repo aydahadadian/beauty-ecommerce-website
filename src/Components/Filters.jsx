@@ -1,11 +1,9 @@
-import { ArrowDropDown, ArrowDropUp, ArrowForward, ArrowForwardIos, ArrowRight, ArrowUpward, Check, KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
+import { ArrowRight, Check, KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
 import styled from "styled-components";
 import "../Style.css";
 import { FilterData } from '../data';
 import Slider from '@material-ui/core/Slider';
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
 
 const Container=styled.div`
 width: 100%;
