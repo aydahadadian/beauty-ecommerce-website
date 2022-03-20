@@ -36,9 +36,6 @@ display: flex;
 align-items: center;
 justify-content: center;
 cursor: pointer;
-
-
-
 :hover ${Info}{
     height:100%;
 }
@@ -49,11 +46,19 @@ const Image = styled.img`
 width: 100%;
 height: 100%;
 object-fit: cover;
-`
-const Video = styled.video`
-width: 100%;
-height: 100%;
-object-fit: cover;
+position:relative;
+::after{
+    z-index: 1;
+    content: "";
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    background-color:#000;
+    opacity:.3;
+    z-index:10;
+}
 `
 
 const Title = styled.h2`
@@ -64,16 +69,6 @@ font-weight: 700;
 z-index:4;
 
 ${SM({fontSize:"1.2rem",fontWeight:"500"})}
-/* ${XS({fontSize:"1rem"})} */
-
-`
-const Btn = styled.button`
-padding: 10px;
-border: none;
-  background-color: #eee;
-  cursor: pointer;
-font-weight: 700;
-
 
 `
 const Cards = ({item}) => {
@@ -83,11 +78,11 @@ const Cards = ({item}) => {
                 <Wrapper>
 
                   
-                     <Image src={item.img} />:
+                     <Image src={item.img} />
                   
             <Info>
                 <Title>{item.title}</Title>
-                {/* <Btn>SHOP NOW</Btn> */}
+         
             </Info>
             </Wrapper>
             </Link>
