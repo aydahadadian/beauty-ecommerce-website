@@ -1,9 +1,5 @@
-import { useState } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-import { MD } from "../../responsive"
-
-
 
 const MenuContainer = styled.div`
 width: 100%;
