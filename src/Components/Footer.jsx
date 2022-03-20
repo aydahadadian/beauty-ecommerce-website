@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { ArrowDropDown, ArrowUpward, Facebook, Instagram, KeyboardArrowUp, KeyboardReturn, LinkedIn, Twitter, YouTube } from '@material-ui/icons';
+import { Facebook, Instagram, LinkedIn, Twitter, YouTube } from '@material-ui/icons';
 import {SM,XS} from "../responsive" 
-import { useState } from 'react';
+
 
 const Container = styled.footer`
   background-color: #eeeeee;
@@ -89,45 +89,12 @@ const LinkItemTitle = styled.h3`
         font-weight: 700;
    
 `;
-const ReturnBtn = styled.button`
-          position: fixed;
-          bottom: 50px;
-          right: 7px;
-          width: 50px;
-          height: 60px;
-          background-color: #3c3c3c;
-          border: none;
-          z-index: 99;
-          border-radius: 4px;
-          box-shadow: 2px 0px 7px 0px #D2D2D2;
-          opacity: .7;
-          cursor: pointer;
-        svg{
-          color:#f3f3f3;
-          font-size:2rem;
-        }
-
-        :hover{
-          opacity:1;
-        }
-   
-`;
 
 
 
 
 const Footer = () => {
 
-  const [isScrolled,setIsScrolled]=useState(false);
-
-    window.onscroll=()=>{
-
-        setIsScrolled(window.pageYOffset==0 ? false : true);
-    }
-
-  const returnToTop = ()=>{
-    window.scrollTo(0, 0)
-  }
 
   
     return(
@@ -204,12 +171,7 @@ const Footer = () => {
            
             </Wrapper>
             <small>jewel-beauty.com © 2021. All rights reserved</small>
-            {isScrolled &&
-            <ReturnBtn onClick={()=>returnToTop()}>
-              <KeyboardArrowUp />
-            </ReturnBtn>
-            }
-         
+  
         </Container>
     );
 };
