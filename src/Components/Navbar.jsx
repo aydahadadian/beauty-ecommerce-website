@@ -2,8 +2,8 @@ import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Badge } from '@material-ui/core';
 import styled from 'styled-components';
-import { SearchOutlined,MenuOutlined,Clear ,ShoppingCartOutlined, AccountCircleOutlined, ArrowUpward, ArrowDropUp, ArrowDropDown} from '@material-ui/icons';
-import { MD, SM,XS } from '../responsive';
+import { SearchOutlined,MenuOutlined,Clear ,ShoppingCartOutlined, AccountCircleOutlined, ArrowDropUp, ArrowDropDown, KeyboardArrowUp} from '@material-ui/icons';
+import { MD, SM } from '../responsive';
 import { Items } from './Menu/MenuData';
 import Menu from './Menu/Menu';
 import Sidebar from './Sidebar/Sidebar';
@@ -12,13 +12,15 @@ import { auth } from '../firebase-config';
 import {onAuthStateChanged,signOut} from "firebase/auth";
 
 
+const Container = styled.div`
+    position: ${(props)=>props.scroll===true && "sticky"};
+    top: 0;
+    background-color: #fff;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+    z-index: 99;
 
 
-
-
-
-
-const Container = styled.div` `
+`
 
 const Wrapper = styled.div`
 height: 60px;
@@ -193,6 +195,29 @@ border-bottom: 1px solid #f6f6f6;
 }
  `
 
+const ReturnBtn = styled.button`
+position: fixed;
+bottom: 50px;
+right: 7px;
+width: 50px;
+height: 60px;
+background-color: #3c3c3c;
+border: none;
+z-index: 99;
+border-radius: 4px;
+box-shadow: 2px 0px 7px 0px #D2D2D2;
+opacity: .7;
+cursor: pointer;
+svg{
+color:#f3f3f3;
+font-size:2rem;
+}
+
+:hover{
+opacity:1;
+}
+
+`;
 
 
 
@@ -206,6 +231,17 @@ const Navbar = () => {
     const [hover, setHover] = useState(false);
     const [click, setClick] = useState(false);
     const [user, setUser] = useState({});
+    const [isScrolled,setIsScrolled]=useState(false);
+
+    window.onscroll=()=>{
+
+        setIsScrolled(window.pageYOffset === 0 ? false : true);
+    }
+
+    const returnToTop = ()=>{
+        window.scrollTo(0, 0)
+      }
+    
 
     onAuthStateChanged(auth, (currentUser)=>{
       setUser(currentUser);
@@ -244,7 +280,7 @@ const Navbar = () => {
    
     return (
         <>
-        <Container>
+        <Container scroll={isScrolled}>
             <Wrapper>
             <Left>
                
@@ -320,7 +356,12 @@ const Navbar = () => {
 
             </Wrapper>
 
-             
+            {isScrolled &&
+            <ReturnBtn onClick={()=>returnToTop()}>
+              <KeyboardArrowUp />
+            </ReturnBtn>
+            }
+         
         </Container>
         {modal &&
         
