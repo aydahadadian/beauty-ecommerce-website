@@ -2,9 +2,9 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { ErrorOutline, VisibilityOffOutlined, VisibilityOutlined } from "@material-ui/icons";
-import {MD, SM, XS} from "../responsive";
+import {XS} from "../responsive";
 
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Footer from "../Components/Footer"
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
@@ -183,7 +183,7 @@ const Login = () => {
   };
 
 
-  if (auth.currentUser?.email) {
+  if (auth.currentUser) {
     return <Redirect to="/panel/dashboard" />;
   }
 
