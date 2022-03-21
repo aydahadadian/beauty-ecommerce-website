@@ -2,8 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import {XS,SM} from "../responsive"
 import CategoryItem from './CategoryItem'
-import Cards from './Cards'
-
 
 
 const Container = styled.div`
@@ -39,42 +37,21 @@ padding: 15px 30px;
 ${XS({textAlign:"center",fontSize:"1.7rem"})}
 `
 
-
-const Category = ({data,type}) => {
+const Category = ({data,title}) => {
     
     
     return (
-        <Container type={type==="category" && "default"}>
+        <Container>
             
-     {type==="category" ?
-            <>
-            <Title>Shop by categories</Title>     
+            <Title>{title}</Title>     
             <Wrapper>
             {data.map((item) => (
 
-            <Cards key={item.id} item={item}/>
+            <CategoryItem key={item.id} item={item}/>
 
             ))
             }
             </Wrapper>
-
-            </>
-       
-           
-             :
-            
-             <Wrapper>
-             {data.map((item) => (
- 
-             <CategoryItem key={item.id} item={item}/>
- 
-             ))
-             }
-             </Wrapper>
-
-        }
-          
-           
 
         </Container>
     )
