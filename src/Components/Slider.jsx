@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import styled from 'styled-components'
 import {sliderItems} from "../data"
 import {MD, SM, XS} from "../responsive"
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
 height: 75vh;
@@ -15,7 +16,7 @@ overflow:hidden;
 /* left:0;
 right:0; */
 ${SM({height:"50vh"})}
-${XS({height:"85vh"})}
+${XS({height:"82vh"})}
 
 
 
@@ -36,7 +37,7 @@ position: relative;
 justify-content:center;
 background-color: #${(props)=>props.bc};
 ${SM({height:"50vh"})}
-${XS({height:"85vh"})};
+${XS({height:"82vh"})};
 ::after{
     content:"";
     width:100%;
@@ -148,7 +149,6 @@ const Btn = styled.div`
     
 font-size: 15px;
 background-color: #171717;
-color: #fff;
 border: none;
 cursor: pointer;
 padding: 10px 20px;
@@ -161,6 +161,9 @@ max-width:85px;
     :hover{
   
        background-color:#6d6d6d;
+    }
+    a{
+        color: #fff;
     }
   
 `
@@ -238,7 +241,7 @@ const Slider = () => {
             <Info>
                 <Title>{s.title}</Title>
                 <Desc>{s.desc}</Desc>
-                <Btn type={s.btn}><b>SHOP </b>  NOW </Btn>
+                <Btn type={s.btn}><Link to="/products"><b>SHOP </b>  NOW </Link></Btn>
             </Info>
 
             </Slide>
