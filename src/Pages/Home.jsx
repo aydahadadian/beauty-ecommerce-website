@@ -6,7 +6,7 @@ import ProSlider from '../Components/ProSlider'
 import Newsletter from '../Components/Newsletter'
 import Footer from '../Components/Footer'
 import Announcement from '../Components/Announcement'
-
+import Cards from '../Components/Cards'
 
 const Home = () => {
     document.body.style.overflowY = "scroll";
@@ -15,9 +15,9 @@ const Home = () => {
             <Announcement />
             <Navbar />
             <Slider />
-            <Category data={discountCategory} type="discount"/>
+            <Cards data={discountCategory} />
             <ProSlider data={products} title="TRENDING PRODUCT"/>
-            <Category data={categories} type="category"/>
+            <Category data={categories} title="SHOP BY CATEGORIES" />
             <Newsletter />
             <Footer />
         </>
