@@ -3,42 +3,54 @@ import styled from 'styled-components'
 import {XS,SM} from "../responsive"
 
 
-const Info = styled.div`
-
-position: absolute;
-bottom:0;
+const Container = styled.div`
 display: flex;
+margin: 1vh 10px;
 justify-content: center;
-align-items: center;
-z-index: 3;
-width: 100%;
-background-color: #3a3a3a68;
-height:15%;
-transition: all .1s ease-in;
-background-color:${(props)=>props.bc}
+
+`
+const Wrapper = styled.div`
+display:flex;;
+align-items:center;
+justify-content:center;
+width:100%;
+${SM({flexWrap:"wrap",width:"80%"})}
+${SM({width:"90%"})}
+
 `
 
-const Container = styled.div`
+const Card = styled.div`
 flex-grow:1;
-height: 42vh;
-width:20%;
-margin: 5px;
+height:260px;
+margin: 8px;
 position: relative;
 border-radius: 4px;
 overflow: hidden;
-${SM({width:"30%"})}
-${XS({width:"90%"})}
-`
-const Wrapper = styled.div`
+background-color:${(props)=>props.bc};
+display:flex;
+justify-content:${(props)=>props.type === "left" ? "start" : "end"};
+${SM({width:"50%",height:"30vh",alignItems:"center"})};
+${XS({height:"35vh"})};
 
-height:100%;
-display: flex;
-align-items: center;
-justify-content: center;
-cursor: pointer;
-:hover ${Info}{
+::after{
+    content:"";
+    width:100%;
     height:100%;
+    top:0;
+    left:0;
+    background-color:#000;
+    opacity:.1;
+    z-index:1;
+    position:absolute;
+
 }
+
+`
+const CardWrapper = styled.div`
+height:100%;
+position:relative;
+${SM({position:"static"})}
+
 
 `
 
@@ -46,48 +58,83 @@ const Image = styled.img`
 width: 100%;
 height: 100%;
 object-fit: cover;
-position:relative;
-::after{
-    z-index: 1;
-    content: "";
-    width:100%;
-    height:100%;
-    position:absolute;
-    top:0;
-    left:0;
-    background-color:#000;
-    opacity:.3;
-    z-index:10;
-}
+
+
+`
+
+const Info = styled.div`
+
+position: absolute;
+top:35px;
+right:${(props)=>props.type === "left" && "0"};
+left:${(props)=>props.type !== "left" && "10px"};
+width: ${(props)=>props.type === "left" ? "45%" : "50%"};
+flex-direction: column;
+${SM({padding:"0 15px"})};
+${XS({padding:"0 8px"})};
+
+
 `
 
 const Title = styled.h2`
-
-color: #ffffff;
-font-size: 1.1em;
-font-weight: 700;
+font-size: 1.9rem;
+font-weight: 600;
 z-index:4;
+${SM({fontSize:"1.5rem",fontWeight:"700"})}
+${XS({fontSize:"1rem"})};
 
-${SM({fontSize:"1.2rem",fontWeight:"500"})}
 
 `
-const Cards = ({item}) => {
+const Text = styled.h5`
+font-weight: 500;
+z-index:4;
+padding-top: 11px;
+
+
+`
+const Btn = styled.button`
+padding: 10px;
+position:absolute;
+right:0;
+bottom:0;
+border: none;
+background:none;
+color:#000000;
+text-decoration:underline;
+  cursor: pointer;
+font-weight: 700;
+
+`
+const Cards= ({data}) => {
     return (
-        <Container bc={item.bc && item.bc}>
-            <Link to="/products">
-                <Wrapper>
 
-                  
+        <Container>
+               <Wrapper>
+        {data.map((item) => (    
+      
+        <Card  key={item.id} bc={item.bc && item.bc} type={item.id===1 && "left"}>
+          
+                <CardWrapper>
+
                      <Image src={item.img} />
-                  
-            <Info>
+                   
+           
+            <Info type={item.id===1 && "left"}>
                 <Title>{item.title}</Title>
-         
+                <Text>{item.desc}</Text>
+               
             </Info>
-            </Wrapper>
-            </Link>
-
+            </CardWrapper>
+         
+            <Btn>  <Link to="/products">SHOP NOW</Link></Btn>
             
+
+        
+        </Card>
+ ))
+}
+
+</Wrapper>
         </Container>
     )
 }
