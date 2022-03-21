@@ -27,6 +27,9 @@ const Wrapper = styled.div`
     transition: all .35s ease-in;
     z-index: 999;
     overflow-y: auto;
+    position: fixed;
+    left: 0;
+    top: 0;
     display: ${props=> props.active === true && "none"};
     
 `
