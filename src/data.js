@@ -1,13 +1,13 @@
 export const sliderItems = [
  
-    {
+  {
       id: 1,
       img: "../Images/slide-1.png",
       ResImg: "../Images/amir-seilsepour-_hAaFD1ucfk-unsplash.jpg",
       title: "Change the world",
-      desc: "Change the world with your shine",
+      desc: "Lorem ipsum dolor,sit amet consectetur adipisicing elit. Libero vel hic amet beatae voluptate",
       bg: "c2aad954",
-    
+
     },
     {
       id: 2,
@@ -18,6 +18,15 @@ export const sliderItems = [
       bg: "ece7ff",
     
     },
+    {
+      id: 3,
+      img: "../Images/slide-3.png",
+      ResImg: "../Images/pexels-adrienne-andersen-2661256.jpg",
+      title: "New skincare products",
+      desc: "Lorem ipsum dolor,sit amet consectetur adipisicing elit. Libero vel hic amet beatae voluptate",
+      bg: "ece7ff",
+    
+    }
 
  
 
@@ -25,9 +34,8 @@ export const sliderItems = [
 
   export const discountCategory = [
  
-   
-    {
-      id: 3,
+       {
+      id: 1,
       img: "../Images/Categories/category1-3.png",
       title: "Winter sale 30% Off",
       desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
@@ -35,31 +43,24 @@ export const sliderItems = [
     
     },
     {
-      id: 1,
+      id: 2,
       img: "../Images/Categories/category1-1.png",
       title: "Winter sale 30% Off",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum saepe officii",
+      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
       bc:"#85FF253D"
       
   
     
     },
     {
-      id: 2,
+      id: 3,
       img: "../Images/Categories/category1-2.png",
       title: "Winter sale 30% Off",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum saepe officii",
+      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
       bc:"#C1A8D361"
       
     
-    
     },
-   
-    
-    
-   
-   
-
 
   ]
 
