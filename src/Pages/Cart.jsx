@@ -13,6 +13,7 @@ display: flex;
 flex-direction: column;
 padding: 20px;
 margin: 1rem 0;
+min-height: 52vh;
 `
 
 const Title = styled.h2`
@@ -202,16 +203,21 @@ margin: 10px 0;
 ${XS({fontSize:"1rem"})};
 `
 
-
+const Notice = styled.h2`
+ 
+color:#a8a8a8b0;
+margin:1rem 2rem;
+${SM({margin:"1rem"})};
+ `
 
 
 
 const Cart = () => {
 
     const cartItems=JSON.parse(localStorage.getItem("beauty-shop-proIds"))
-    const subTotal = cartItems.map(item=> item.Qty*item.PrevPrice).reduce((prev, curr) => prev + curr, 0)
-    const total = cartItems.map(item=> item.Qty*item.Price).reduce((prev, curr) => prev + curr, 0)
-    const quantity = cartItems.map(item=> item.Qty).reduce((prev, curr) => prev + curr, 0)
+    const subTotal = cartItems?.map(item=> item.Qty*item.PrevPrice).reduce((prev, curr) => prev + curr, 0)
+    const total = cartItems?.map(item=> item.Qty*item.Price).reduce((prev, curr) => prev + curr, 0)
+    const quantity = cartItems?.map(item=> item.Qty).reduce((prev, curr) => prev + curr, 0)
     const discount = subTotal-total;
 
     
@@ -245,6 +251,12 @@ const handleDelete=(item)=>{
         <Container>
               
             <Title>SHOPPING CART</Title> 
+
+            {cartItems?.length === 0 || cartItems === null ?
+            
+            <Notice>Your Cart is empty !</Notice>
+            
+            :
 
 
             <Wrapper>
@@ -346,7 +358,7 @@ const handleDelete=(item)=>{
                     </ButtonContainer>
                 </Summary>
             </Wrapper>
-            
+}
         </Container>
 
         <Newsletter />
