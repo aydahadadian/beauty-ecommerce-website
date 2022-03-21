@@ -285,25 +285,7 @@ console.log('rate',rateIndex)
           </TopContainer>
 
           <BottomContainer>
-              <Review>
-                  <Row><ProPhoto src="../Images/user-img1.jpg" /><Name>Sara Jackson</Name></Row>
-                  <Row> <Title> Great lipstick</Title></Row>
-                  <Row>
-                  <Rate size="small">
-                    
-                  <Rating name="read-only" size="small" value={5} readOnly />
-                    
-                
-                </Rate>
-                      <Date>June 3, 2021</Date></Row>
-                  <Row><Text>
-                      This I really liked. I like all the colors. I was not sure I would. Nice texture,and it stays on about as well as any other. 
-                      </Text> </Row>
-                    <Row>
-                      <Icon>5<ThumbUpOutlined /> </Icon>
-                      <Icon>1<ThumbDownOutlined /> </Icon> 
-                      </Row>
-              </Review>
+           
               <Review>
                   <Row><ProPhoto src="../Images/user-img1.jpg" /><Name>Sara Jackson</Name></Row>
                   <Row> <Title> Great lipstick</Title></Row>
