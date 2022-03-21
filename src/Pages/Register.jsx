@@ -23,6 +23,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${XS({background:"#C6B1FF"})}
 `;
 
 const Wrapper = styled.div`
