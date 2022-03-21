@@ -20,7 +20,20 @@ margin:0 2rem ;
 const TopContainer = styled.div`
 
 position: relative;
+::after{
 
+    position:absolute;
+    top:0;
+    left:0;
+    font-size:.9rem;
+    color:#707070;
+    width:100%;
+    padding:5px 0;
+    background-color:#eeeeee9e;
+    text-align:center;
+    ${XS({content:"'Click on the image to zoom'"})};
+    
+}
 
 `
 
