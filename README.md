@@ -1,4 +1,3 @@
-react JS project
 # beauty-ecommerce-website
 
 project link on netlify :
