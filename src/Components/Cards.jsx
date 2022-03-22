@@ -15,7 +15,7 @@ align-items:center;
 justify-content:center;
 width:100%;
 ${SM({flexWrap:"wrap",width:"80%"})}
-${SM({width:"90%"})}
+${SM({width:"100%"})}
 
 `
 
