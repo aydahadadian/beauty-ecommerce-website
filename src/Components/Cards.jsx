@@ -7,6 +7,7 @@ const Container = styled.div`
 display: flex;
 margin: 1vh 10px;
 justify-content: center;
+${XS({display:"none"})};
 
 `
 const Wrapper = styled.div`
@@ -15,7 +16,6 @@ align-items:center;
 justify-content:center;
 width:100%;
 ${SM({flexWrap:"wrap",width:"80%"})}
-${SM({width:"100%"})}
 
 `
 
@@ -50,16 +50,12 @@ const CardWrapper = styled.div`
 height:100%;
 position:relative;
 ${SM({position:"static"})}
-
-
 `
 
 const Image = styled.img`
 width: 100%;
 height: 100%;
 object-fit: cover;
-
-
 `
 
 const Info = styled.div`
@@ -71,9 +67,6 @@ left:${(props)=>props.type !== "left" && "10px"};
 width: ${(props)=>props.type === "left" ? "45%" : "50%"};
 flex-direction: column;
 ${SM({padding:"0 15px"})};
-${XS({padding:"0 8px"})};
-
-
 `
 
 const Title = styled.h2`
@@ -81,7 +74,7 @@ font-size: 1.9rem;
 font-weight: 600;
 z-index:4;
 ${SM({fontSize:"1.5rem",fontWeight:"700"})}
-${XS({fontSize:"1rem"})};
+
 
 
 `
