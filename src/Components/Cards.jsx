@@ -30,7 +30,7 @@ background-color:${(props)=>props.bc};
 display:flex;
 justify-content:${(props)=>props.type === "left" ? "start" : "end"};
 ${SM({width:"50%",height:"30vh",alignItems:"center"})};
-${XS({height:"35vh"})};
+
 
 ::after{
     content:"";
