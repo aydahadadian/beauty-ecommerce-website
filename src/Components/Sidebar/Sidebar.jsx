@@ -17,6 +17,7 @@ height:100vh;
 position:fixed;
 z-index:100;
 top:0;
+display: ${props=> props.active === true && "none"};
 `
 
 const Wrapper = styled.div`
@@ -30,7 +31,7 @@ const Wrapper = styled.div`
     position: fixed;
     left: 0;
     top: 0;
-    display: ${props=> props.active === true && "none"};
+   
     
 `
 const Top = styled.div`
@@ -130,7 +131,7 @@ const Sidebar = ({sidebar,setSidebar}) => {
     
 
     return (
-        <Container active={sidebar ? false : true} onTouchStart={handleSidebar}>
+        <Container active={sidebar ? false : true}>
               
                <Wrapper>
                
