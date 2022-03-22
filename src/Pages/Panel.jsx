@@ -104,6 +104,8 @@ b{
 
 
 const Panel = () => {
+  
+  document.body.style.overflowY = "scroll";
   const  {link}  = useParams();
 
   const [user, setUser] = useState(null);
